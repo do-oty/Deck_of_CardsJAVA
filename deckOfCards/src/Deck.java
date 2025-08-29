@@ -1,9 +1,12 @@
 import java.util.ArrayList;
+import java.util.Random;
+import java.util.Scanner;
 
 public class Deck {
 
     public Card[] cards;
     public int count;
+    public Card[] dealtCards;
 
 
     private class Card {
@@ -50,6 +53,75 @@ public class Deck {
 
     }
 
+
+    public void Deal(){
+
+        Scanner scan = new Scanner(System.in);
+      
+        System.out.printf("\nCards in deck [%d]..\n",count);
+
+        System.out.printf("\nHow many cards to deal?\n");
+        int numCards = scan.nextInt();
+
+        dealtCards = new Card[numCards];
+
+        if(numCards > count){
+            System.out.printf("\nNot enough cards in deck!\n");
+            return;
+        }
+
+        System.out.printf("\nDealing %d cards..\n", numCards);
+
+        int j = 0;
+        for(int i = 0; i < numCards; i++){
+                dealtCards[j] = cards[count - 1];
+                cards[count - 1] = null;  
+                j++;
+                count--; 
+        }
+
+        System.out.printf("\nDealt %d cards..\n", j);
+
+        for(int i = 0; i < j; i++){
+            System.out.printf("[%d]Suit: [%s]\tRank: [%s]\n", i+1,
+                    dealtCards[i].suit,
+                    dealtCards[i].rank);
+        }
+
+    }
+
+
+    public void Shuffle() {
+  
+
+        System.out.printf("\nShuffling cards..\n");
+
+        Card[] validCards = new Card[count];
+        int validIndex = 0;
+
+        for (int i = 0; i < cards.length; i++) {
+            if (cards[i] != null) {
+                validCards[validIndex++] = cards[i];
+            }
+        }
+
+        for (int i = validIndex - 1; i > 0; i--) {
+            int j = new Random().nextInt(i + 1);
+            Card temp = validCards[i];
+            validCards[i] = validCards[j];
+            validCards[j] = temp;
+        }
+    
+        for (int i = 0; i < validIndex; i++) {
+            cards[i] = validCards[i];
+        }
+ 
+        for (int i = validIndex; i < cards.length; i++) {
+            cards[i] = null;
+        }
+
+        System.out.printf("\nCards shuffled..\n");
+    }
 
 
 

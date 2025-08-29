@@ -17,7 +17,7 @@ public class Menu {
         do{
 
 
-            System.out.printf("What to do?:\n[1]\tCreate\n" +
+            System.out.printf("\n\nWhat to do?:\n[1]\tCreate\n" +
                     "[2]\tShuffle\n" +
                     "[3]\tDeal\n" +
                     "[4]\tDisplay\n" +
@@ -32,10 +32,18 @@ public class Menu {
                     System.out.println("Deck created.\n");
                     break;
                 case 2:
-
+                if(deck != null){
+                    deck.Shuffle();
+                }else {
+                    System.out.println("\n\nDeck not created yet!\n");
+                }
                     break;
                 case 3:
-
+                    if(deck != null){
+                        deck.Deal();
+                    }else {
+                        System.out.println("\n\nDeck not created yet!\n");
+                    }   
                     break;
 
                 case 4:
